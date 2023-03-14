@@ -8,11 +8,23 @@ function Navbar() {
     <div id="navbar">
       <div id="logo">UniveristyMingle</div>
       <div>Welcome User</div>
-      <div className="categories">Category 1</div>
-      <div className="categories">Category 2</div>
+      <div className="categories">Category</div>
+      <div className="categories">Category</div>
+      <div className="categories">Category</div>
+      <div className="categories">Category</div>
+      <div className="categories">Category</div>
+      <div className="categories">Category</div>
     </div>
     
   )
+}
+
+//The Homepage containing some about info and how to navigate.
+function homePage() {
+  <div>
+    <h1>Welcome to University Mingle!</h1>
+
+  </div>
 }
 
 function App() {
