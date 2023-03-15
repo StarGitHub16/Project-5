@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-
+import {BrowserRouter, Routes, Route, NavLink} from 'react-router-dom'
 
 
 function Navbar() {
@@ -8,7 +8,7 @@ function Navbar() {
     <div id="navbar">
       <div id="logo">UniveristyMingle</div>
       <div>Welcome User</div>
-      <div className="categories">Category</div>
+      <NavLink to={'/'} className="categories" >Category</NavLink>
       <div className="categories">Category</div>
       <div className="categories">Category</div>
       <div className="categories">Category</div>
@@ -23,8 +23,21 @@ function Navbar() {
 function homePage() {
   <div>
     <h1>Welcome to University Mingle!</h1>
-
+    <br />
+    <h2>Here you can ask questions or find existing questions.
+        Related to Unviersity topics that students have experienced in!
+    </h2>
   </div>
+}
+
+function Main() {
+  return(
+    <BrowserRouter>
+      <Routes>
+        
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 function App() {
