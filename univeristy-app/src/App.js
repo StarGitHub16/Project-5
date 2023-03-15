@@ -14,9 +14,6 @@ function Navbar() {
       <NavLink to={'/'} className="categories">Category</NavLink>
       <NavLink to={'/'} className="categories">Category</NavLink>
       <NavLink to={'/'} className="categories">Category</NavLink>
-      
-      
-      
     </div>
     
   )
