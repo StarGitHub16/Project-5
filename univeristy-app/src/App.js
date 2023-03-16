@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import React, { useState, useEffect} from 'react';
 import './App.css';
 import {BrowserRouter, Routes, Route, NavLink} from 'react-router-dom'
 
@@ -9,7 +10,7 @@ function Navbar() {
       <div id="logo">UniveristyMingle</div>
       <div>Welcome User</div>
       <NavLink to={'/'} className="categories">Home</NavLink>
-      <NavLink to={'/'} className="categories">Category</NavLink>
+      <NavLink to={'/class'} className="categories">Category</NavLink>
       <NavLink to={'/'} className="categories">Category</NavLink>
       <NavLink to={'/'} className="categories">Category</NavLink>
       <NavLink to={'/'} className="categories">Category</NavLink>
@@ -30,14 +31,47 @@ function Homepage() {
   );
 }
 
+//Function pertaining to user submitting a new response.
+function NewQuestionScreen() {
+
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:8000/message")
+      .then((res) => res.json())
+      .then((data) => setMessage(data.message));
+  }, []);
+
+    return(
+      <div>
+        <h1>{message}</h1>
+        <form>
+           <legend>Please enter your question below:</legend>
+           <br />
+           <input name="Question" type="text"/>
+           <br />
+          
+           <input type="submit" value="Submit Question" class="button" />
+        </form>
+      </div>
+    )
+}
+
+
+
 
 function App() {
+
+  //Communicating with the backend
+  
+
   return (
     <div className="App">
       <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element= {<Homepage />} />
+        <Route path="/class" element= {<NewQuestionScreen />} />
+        <Route path="/" element= {<Homepage />} />       
       </Routes>
       </BrowserRouter>
       </div>
