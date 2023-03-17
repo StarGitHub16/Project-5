@@ -7,8 +7,6 @@ body{
 }
 
 #navbar{
-  background-color: rgb(4, 0, 255);
-  color: white;
   float: left;
   border-style: solid;
   border-color: black;

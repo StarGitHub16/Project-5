@@ -3,33 +3,67 @@ var express = require('express');
 var app = express();
 var cors = require('cors');
 
+app.use(express.urlencoded({extended: true}))
 app.use(cors());
 app.use(express.json());
 
 var mysql = require('mysql');
  
-//var con = mysql.createConnection({
-    //host: "localhost",
-    //user: "root",
-    //password: ""
-//});
+var db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: ""
+});
 
-//con.connect(function(err) {
-    //if (err) throw err;
-    //console.log("Connected!");
-//});
+db.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
 
 
 //Testing code will need to take this out later
 
 
-var questions = [
- {
-    id: 1,
-    question: "What Math classes are good at OSU?",
-    answer: " I personally like Calculus"
- }
+//Login Code Section
+
+var users = [
+    {
+        username: 'Hello', password: 'Whatisup'
+    }
+    
 ]
+
+app.post('/register', (req, res) => {
+
+    const username = req.body.username
+    const password = req.body.password
+
+    db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, password], (err, result) => {
+            console.log(err);
+        }
+    )
+});
+
+app.post('/login', (req, res) => {
+
+    const username = req.body.username
+    const password = req.body.password
+
+    db.query("SELECT * FROM UserInfo WHERE username = ? AND password = ?", [username, password], (err, result) => {
+            if(err) {
+                res.send({err: err})
+            } 
+            
+            if(result.length > 0) {
+                res.send(result)
+            } else {
+                res.send({message: "Wrong username/password combination."})
+                
+            }
+        }
+    )
+})
+
 
 app.use(express.json());
 

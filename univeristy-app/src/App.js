@@ -1,10 +1,14 @@
 import logo from './logo.svg';
 import React, { useState, useEffect} from 'react';
 import './App.css';
-import {BrowserRouter, Routes, Route, NavLink} from 'react-router-dom'
+import Axios from 'axios'
+import {BrowserRouter, Routes, Route, NavLink, useLocation} from 'react-router-dom'
 
 
 function Navbar() {
+
+  const location= useLocation()
+
   return (
     <div>
       <div id="navbar">
@@ -19,12 +23,90 @@ function Navbar() {
 
     <div id="logo">
       <div>UniveristyMingle</div>
-      <div>Welcome User</div>
+      <div>Welcome {location.state.id}</div>
     </div>
     
     </div>
   )
 }
+
+
+
+//Info regarding the SignUp page.
+function SignUp () {
+
+  const [username, setUsername] = useState('')
+
+  const [password, setPassword] = useState('')
+
+  const register = () => {
+    Axios.post('http://localhost8000/register', 
+    {username: username, password:password
+    }).then((response) => {
+      console.log(response);
+    })
+  }
+
+  return(
+  <div>
+    <h1>SignUp Here:</h1>
+    <form action="POST">
+        <label>Username: </label>
+        <input name="Username" onChange={(e) =>{setUsername(e.target.value)}} type="text" required="required" />
+        <br />
+        <br />
+        <label>Password: </label>
+        <input name="Password" onChange={(e) =>{setPassword(e.target.value)}} type="password" required="required" />
+        <br />
+        <br />
+        <input type="submit" onClick={register} value="Register" class="button" />
+    </form>
+  </div>
+  )
+}
+
+function Login() {
+
+  const [username, setUsername] = useState('');
+
+  const [password, setPassword] = useState('');
+
+  const [loginStatus, setLoginStatus] =useState('');
+
+  const login = () => {
+    Axios.post('http://localhost8000/login', 
+    {username: username, password:password
+    }).then((response) => {
+
+      if(response.data.message) {
+        setLoginStatus(response.data.message)
+      } else {
+        setLoginStatus(response.data[0].username)
+      }
+      console.log(response);
+    })
+  }
+
+  return(
+  <div>
+    <h1>Login Here:</h1>
+    <form action="POST">
+        <label>Username: </label>
+        <input name="Username" onChange={(e) =>{setUsername(e.target.value)}} type="text" required="required" />
+        <br />
+        <br />
+        <label>Password: </label>
+        <input name="Password" onChange={(e) =>{setPassword(e.target.value)}} type="password" required="required" />
+        <br />
+        <br />
+        <input type="submit" onClick={login} value="Login" class="button" />
+    </form>
+
+    <h1>Congrats {loginStatus}</h1>
+  </div>
+  )
+}
+
 
 //The Homepage containing some about info and how to navigate.
 function Homepage() {
@@ -68,7 +150,7 @@ function NewQuestionScreen() {
 
 function App() {
 
-  //Communicating with the backend
+  
   
 
   return (
