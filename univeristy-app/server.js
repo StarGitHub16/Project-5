@@ -34,7 +34,7 @@ var questions = [
 app.use(express.json());
 
 app.get('/message', function(req, res) {
-    res.json({ message: "Hello World" });
+    res.json({ message: "Connection Successful!" });
 });
 
 
