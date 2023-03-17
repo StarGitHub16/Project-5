@@ -1,20 +1,23 @@
 // imports 
 var express = require('express');
 var app = express();
+var cors = require('cors');
 
+app.use(cors());
+app.use(express.json());
 
 var mysql = require('mysql');
  
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: ""
-});
+//var con = mysql.createConnection({
+    //host: "localhost",
+    //user: "root",
+    //password: ""
+//});
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+//con.connect(function(err) {
+    //if (err) throw err;
+    //console.log("Connected!");
+//});
 
 
 //Testing code will need to take this out later
@@ -31,7 +34,7 @@ var questions = [
 app.use(express.json());
 
 app.get('/message', function(req, res) {
-    res.json({message: 'Hello World'});
+    res.json({ message: "Hello World" });
 });
 
 
