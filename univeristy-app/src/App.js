@@ -6,17 +6,23 @@ import {BrowserRouter, Routes, Route, NavLink} from 'react-router-dom'
 
 function Navbar() {
   return (
-    <div id="navbar">
-      <div id="logo">UniveristyMingle</div>
-      <div>Welcome User</div>
+    <div>
+      <div id="navbar">
       <NavLink to={'/'} className="categories">Home</NavLink>
-      <NavLink to={'/class'} className="categories">Category</NavLink>
-      <NavLink to={'/'} className="categories">Category</NavLink>
-      <NavLink to={'/'} className="categories">Category</NavLink>
-      <NavLink to={'/'} className="categories">Category</NavLink>
-      <NavLink to={'/'} className="categories">Category</NavLink>
+      <NavLink to={'/'} className="categories">Admissions</NavLink>
+      <NavLink to={'/'} className="categories">Athletics and Gym</NavLink>
+      <NavLink to={'/class'} className="categories">Classes</NavLink>
+      <NavLink to={'/'} className="categories">Clubs</NavLink>
+      <NavLink to={'/'} className="categories">Events</NavLink>
+      <NavLink to={'/'} className="categories">Housing</NavLink>
+    </div>
+
+    <div id="logo">
+      <div>UniveristyMingle</div>
+      <div>Welcome User</div>
     </div>
     
+    </div>
   )
 }
 
