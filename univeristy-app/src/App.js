@@ -75,7 +75,7 @@ function Login() {
 
   const login = () => {
     Axios.post('http://localhost:8000/login', 
-    {username: username, password:password
+    {username: username, password: password
     }).then((response) => {
 
       if(response.data.message) {
@@ -90,7 +90,7 @@ function Login() {
   return(
   <div>
     <h1>Login Here:</h1>
-    <form action="POST">
+    <form>
         <label>Username: </label>
         <input name="Username" onChange={(e) =>{setUsername(e.target.value)}} type="text" required="required" />
         <br />
@@ -99,10 +99,10 @@ function Login() {
         <input name="Password" onChange={(e) =>{setPassword(e.target.value)}} type="password" required="required" />
         <br />
         <br />
-        <input type="submit" onClick={login} value="Login" class="button" />
+        <input type="submit" onClick={login} value="Login" className="button" />
     </form>
 
-    <h1>Congrats {loginStatus}</h1>
+    <h1>{loginStatus}</h1>
   </div>
   )
 }
