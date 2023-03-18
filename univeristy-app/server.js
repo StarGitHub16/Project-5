@@ -14,7 +14,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session') //will keep the user logged in.
 
 
-
 app.use(express.json());
 
 app.use(cors({
