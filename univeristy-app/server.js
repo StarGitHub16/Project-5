@@ -43,7 +43,7 @@ var db = mysql.createConnection({
     password: "",
     database: "universityapp"
 });
- 
+  
 
 //db.connect(function(err) {
     //if (err) throw err;
@@ -112,8 +112,6 @@ app.post('/login', (req, res) => {
         }
     );
 });
-
-
 
 
 app.get('/message', function(req, res) {
