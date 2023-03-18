@@ -41,7 +41,7 @@ app.use(session({
 var db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "shinysecret130",
+    password: "",
     database: "universityapp"
 });
  
