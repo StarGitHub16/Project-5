@@ -18,7 +18,7 @@ var db = mysql.createConnection({
     password: "",
     database: "universityapp"
 });
-
+ 
 
 //db.connect(function(err) {
     //if (err) throw err;
