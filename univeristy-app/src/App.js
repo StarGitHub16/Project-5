@@ -38,6 +38,8 @@ function Register () {
 
   const [passwordReg, setPasswordReg] = useState('')
 
+  Axios.defaults.withCredentials = true; 
+
   const register = () => {
     Axios.post('http://localhost:8000/register', 
     {username: usernameReg, password: passwordReg
@@ -87,7 +89,13 @@ function Login() {
     })
   }
 
-  
+  useEffect ( () => {
+    Axios.get("http://localhost:8000/login").then((response) => {
+      if(response.data.loggedIn === true)
+      setLoginStatus(response.data.user[0].username);
+    })
+  }, [])
+
   return(
   <div>
     <h1>Login Here:</h1>
