@@ -1,24 +1,29 @@
 // imports 
 var express = require('express');
+var mysql = require('mysql');
+
+
 var app = express();
 var cors = require('cors');
+
 
 app.use(express.urlencoded({extended: true}))
 app.use(cors());
 app.use(express.json());
 
-var mysql = require('mysql');
  
 var db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: ""
+    password: "",
+    database: "universityapp"
 });
 
-db.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+
+//db.connect(function(err) {
+    //if (err) throw err;
+    //console.log("Connected!");
+//});
 
 
 //Testing code will need to take this out later
@@ -26,30 +31,26 @@ db.connect(function(err) {
 
 //Login Code Section
 
-var users = [
-    {
-        username: 'Hello', password: 'Whatisup'
-    }
-    
-]
 
 app.post('/register', (req, res) => {
 
     const username = req.body.username
     const password = req.body.password
 
-    db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, password], (err, result) => {
+    db.query("INSERT INTO userinfo (username, password) VALUES (?, ?)", 
+    [username, password], 
+    (err, result) => {
             console.log(err);
         }
-    )
+    );
 });
 
-app.post('/login', (req, res) => {
+app.get('/login', (req, res) => {
 
     const username = req.body.username
     const password = req.body.password
 
-    db.query("SELECT * FROM UserInfo WHERE username = ? AND password = ?", [username, password], (err, result) => {
+    db.query("SELECT * FROM userinfo WHERE username = ? AND password = ?", [username, password], (err, result) => {
             if(err) {
                 res.send({err: err})
             } 
@@ -65,7 +66,7 @@ app.post('/login', (req, res) => {
 })
 
 
-app.use(express.json());
+
 
 app.get('/message', function(req, res) {
     res.json({ message: "Connection Successful!" });

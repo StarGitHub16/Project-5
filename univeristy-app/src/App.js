@@ -2,12 +2,10 @@ import logo from './logo.svg';
 import React, { useState, useEffect} from 'react';
 import './App.css';
 import Axios from 'axios'
-import {BrowserRouter, Routes, Route, NavLink, useLocation} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, NavLink, Navigate} from 'react-router-dom'
 
 
 function Navbar() {
-
-  const location= useLocation()
 
   return (
     <div>
@@ -19,11 +17,12 @@ function Navbar() {
       <NavLink to={'/'} className="categories">Clubs</NavLink>
       <NavLink to={'/'} className="categories">Events</NavLink>
       <NavLink to={'/'} className="categories">Housing</NavLink>
+      <NavLink to={'/login'} className="categories">Logout</NavLink>
     </div>
 
     <div id="logo">
       <div>UniveristyMingle</div>
-      <div>Welcome {location.state.id}</div>
+      <div>Welcome User</div>
     </div>
     
     </div>
@@ -33,15 +32,15 @@ function Navbar() {
 
 
 //Info regarding the SignUp page.
-function SignUp () {
+function Register () {
 
-  const [username, setUsername] = useState('')
+  const [usernameReg, setUsernameReg] = useState('')
 
-  const [password, setPassword] = useState('')
+  const [passwordReg, setPasswordReg] = useState('')
 
   const register = () => {
-    Axios.post('http://localhost8000/register', 
-    {username: username, password:password
+    Axios.post('http://localhost:8000/register', 
+    {username: usernameReg, password: passwordReg
     }).then((response) => {
       console.log(response);
     })
@@ -50,21 +49,22 @@ function SignUp () {
   return(
   <div>
     <h1>SignUp Here:</h1>
-    <form action="POST">
+    <form>
         <label>Username: </label>
-        <input name="Username" onChange={(e) =>{setUsername(e.target.value)}} type="text" required="required" />
+        <input name="Username" onChange={(e) =>{setUsernameReg(e.target.value)}} type="text" required="required" />
         <br />
         <br />
         <label>Password: </label>
-        <input name="Password" onChange={(e) =>{setPassword(e.target.value)}} type="password" required="required" />
+        <input name="Password" onChange={(e) =>{setPasswordReg(e.target.value)}} type="password" required="required" />
         <br />
         <br />
-        <input type="submit" onClick={register} value="Register" class="button" />
+        <input type="submit" onClick={register} value="Register" className="button" />
     </form>
   </div>
   )
 }
 
+//Info regarding the login page.
 function Login() {
 
   const [username, setUsername] = useState('');
@@ -74,7 +74,7 @@ function Login() {
   const [loginStatus, setLoginStatus] =useState('');
 
   const login = () => {
-    Axios.post('http://localhost8000/login', 
+    Axios.post('http://localhost:8000/login', 
     {username: username, password:password
     }).then((response) => {
 
@@ -110,14 +110,28 @@ function Login() {
 
 //The Homepage containing some about info and how to navigate.
 function Homepage() {
-  return(
-  <div>
-    <h1>Welcome to University Mingle!</h1>
-    <br />
-    <h2>Here you can chat and ask questions with other students!</h2>
-  </div>
-  );
+
+  const [authenticated, setauthenticated] = useState(null);
+  useEffect(() => {
+  const loggedInUser = localStorage.getItem("authenticated");
+  if (loggedInUser) {
+  setauthenticated(loggedInUser);
+  }
+  }, []);
+  
+  if (!authenticated) {
+    return <Navigate replace to ="/login" />;
+  } else {
+      return(
+        <div>
+          <h1>Welcome to University Mingle!</h1>
+          <br />
+          <h2>Here you can chat and ask questions with other students!</h2>
+        </div>
+        );
 }
+}
+
 
 //Function pertaining to user submitting a new response.
 function NewQuestionScreen() {
@@ -151,18 +165,18 @@ function NewQuestionScreen() {
 function App() {
 
   
-  
-
   return (
     <div className="App">
       <BrowserRouter>
       <Navbar />
       <Routes>
+        <Route path="/register" element={<Register />}/>
+        <Route path="/login" element={<Login />} />
         <Route path="/class" element= {<NewQuestionScreen />} />
         <Route path="/" element= {<Homepage />} />       
       </Routes>
       </BrowserRouter>
-      </div>
+     </div>
   );
 }
 
