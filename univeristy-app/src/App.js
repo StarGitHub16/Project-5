@@ -61,6 +61,8 @@ function Register () {
         <br />
         <br />
         <input type="submit" onClick={register} value="Register" className="button" />
+        <br />
+        <NavLink to ='/login'>Login Here</NavLink>
     </form>
   </div>
   )
@@ -109,6 +111,8 @@ function Login() {
         <br />
         <br />
         <input type="submit" onClick={login} value="Login" className="button" />
+        <br />
+        <NavLink to ='/register'> Register Here</NavLink>
     </form>
 
     <h1>{loginStatus}</h1>
