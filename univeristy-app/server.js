@@ -113,6 +113,68 @@ app.post('/login', (req, res) => {
     );
 });
 
+
+//The thread section
+
+const threadList = [];
+
+const generateID = () => Math.random().toString(36).substring(2,10);
+
+app.post("/api/create/thread", async (req, res) => {
+    const {thread, userId } = req.body;
+    const threadId = generateID();
+
+    threadList.unshift({
+        id:threadId,
+        title: thread,
+        userId,
+        replies: []
+    });
+
+    res.json({
+        message:"Thread created successfully!",
+        threads: threadList,
+    });
+})
+
+app.get("/api/all/threads", (req, res) => {
+    res.json({
+        threads: threadList,
+    });
+});
+
+app.post("/api/thread/replies", (req, res) => {
+    const { id } = req.body;    
+    
+
+    const result = threadList.filter((thread) => thread.id === id);
+
+    res.json({
+        replies: result[0].replies,
+        title: result[0].title,
+    });
+})
+
+const users=[]
+
+app.post("api/create/reply", async(req, res) => {
+
+    const { id, userId, reply } = req.body;
+
+    const result = threadList.filter((thread) => thread.id === id);
+
+    const user = users.filter((user) => user.id === userId);
+
+    result[0].replies.unshift({
+        userId: user[0].id,
+        name: user[0].username,
+        test: reply,
+    });
+
+    res.json({
+        message: "Response added successfully!"
+    });
+})
  
 app.get('/message', function(req, res) {
     res.json({ message: "Connection Successful!" });
